@@ -7,6 +7,7 @@
 }*
 body{
     font-family:'Times New Roman', Times, serif;
+    scroll-behavior: smooth;
   
 }
 
@@ -28,12 +29,17 @@ body{
         padding-top: 10px;
     }
     .contend_area{
-        margin-top: 20px;
+        margin-top: 25px;
     }
-    .header_bg h1{
+    .header_bg h4{
         margin-bottom: 15px;
-        font-size: large;
+        font-size: 18px;
+        line-height: 1.5rem;
         text-transform: uppercase;
+    }
+    .header_bg p{
+        line-height: 1.5rem;
+        font-size: 1.3rem;
     }
     .header_bg img{
         width: 50%;
@@ -93,7 +99,7 @@ main .container h1{
     background-color:#ecebeb;
     padding: 10px;
     overflow-y: scroll;
-    
+  
     
 }
 .card{
@@ -239,7 +245,7 @@ main .container h1{
         align-items: center;
         background-color:#ccc;
         padding: 10px;
-        
+        overflow-y:scroll;
         
     }
     .card{
@@ -292,7 +298,7 @@ main .container h1{
      cursor: pointer;
      padding: 5px;
      background-color: #c5c3c8;
-     margin-bottom: 5px;
+     margin-right: 5px;
      border-radius: 5px;
  } 
  
@@ -362,6 +368,8 @@ main .container h1{
     
     .searchValue{
         display: none;
+        justify-content: center;
+       
     }
 
     /*country-display_start*/
@@ -373,7 +381,7 @@ main .container h1{
         align-items: center;
         background-color:#ccc;
         padding: 10px;
-        overflow: scroll;
+        overflow-y: scroll;
         
     }
     .card{
@@ -432,10 +440,7 @@ main .container h1{
     }
 
 }
-.country_display{
-    margin-bottom: 5rem;
-    padding: 10px;
-}
+
 
 
 

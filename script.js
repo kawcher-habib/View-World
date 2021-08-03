@@ -49,7 +49,6 @@ const backIcon = document.querySelector("#back");
 
 //Country Detail Info Display
 const rendaringCountryInfo = country => {
-    console.log(country)
     countryDisplay.style.display = "none";
     backIcon.style.display = "inline";
     searchValueDisplay.style.display = "none";
