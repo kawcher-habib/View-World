@@ -3,12 +3,17 @@ fetch('https://restcountries.com/v3.1/all')
     .then(res => res.json())
     .then(data => countrys(data));
 
+const loadingSpinner = displayStyle => {
+    document.getElementById("spinner").style.display = displayStyle;
+}
 //Country Display 
 const countrys = countriesData => {
+    loadingSpinner("block")
     const countryDisplay = document.querySelector(".country-display-area");
     countriesData.map(getData => {
         const { flags, name } = getData
         let newDiv = document.createElement("div")
+        // newDiv.classList.add("d-flex")
         newDiv.innerHTML = `
         <div class="card mb-2" style="width: 18rem;">
             <img src=${flags.png} class="card-img-top" alt="flags">
@@ -20,6 +25,7 @@ const countrys = countriesData => {
         `
         countryDisplay.appendChild(newDiv)
     })
+    loadingSpinner("none")
 
 }
 //Country Detail area
@@ -39,23 +45,25 @@ const backIcon = document.querySelector("#back");
 
 //Country Detail Info Display
 const renderingCountryInfo = country => {
+    loadingSpinner("block")
     const { flags, name, capital, region, subregion, timezones, startOfWeek, area, population, maps } = country[0]
+    countryDisplay.classList.remove("d-flex")
     countryDisplay.style.display = "none";
     countryDetails.style.display = "block"
-    backIcon.style.display = "inline";
+    // backIcon.style.display = "inline";
     searchValueDisplay.style.display = "none";
     searchBox.style.display = "none"
-
+    console.log(name.common)
     let countryDetailsNewDiv = document.createElement("div");
-    countryDetailsNewDiv.classList.add("country-detail")
+    countryDetailsNewDiv.classList.add("row")
 
     countryDetailsNewDiv.innerHTML = `
                    
-                    <div class="flag-img">
+                    <div class="col-md-4 col-sm-12">
                       <img src =${flags.png} alt="countryFlag"/>
                       <h1>${name.common}</h1>
                     </div>
-                     <div class="countryInfo">
+                     <div class="col-md-8 col-sm-12">
                      <table class="table table-striped">
                         <tbody>
                             <tr>
@@ -89,23 +97,23 @@ const renderingCountryInfo = country => {
                         </tbody>
                         </table>
                     </div>
-                    <div class="">
-                    
-                        <div className="maps ">
-                        <iframe  src=${maps.googleMaps}  style="border:0;"  loading="lazy"></iframe>
-                        
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                        <iframe  src=${maps.googleMaps}   loading="lazy"></iframe>
                         </div>
-                    </div>
+        
+                </div>
              
          `
     countryDetails.appendChild(countryDetailsNewDiv);
+    loadingSpinner("none")
 
 }
 
 // search-area
 const searchBox = document.querySelector(".search-box");
 const searchBtn = document.getElementById("searchBtn");
-const inputValue = document.getElementById("inputBox")
+
 const searchInput = (getName) => {
     const url = `https://restcountries.com/v3.1/name/${getName}?fullText=true`
     fetch(url)
@@ -115,9 +123,14 @@ const searchInput = (getName) => {
 
 // searchBtn
 searchBtn.addEventListener("click", function () {
-    const inputValues = inputValue.value;
-    // console.log(inputValues)
-    searchInput(inputValues)
+    countryDisplay.classList.remove("d-flex")
+    countryDisplay.style.display = "none"
+    loadingSpinner("block")
+    const inputValue = document.getElementById("inputBox").value
+    console.log(inputValue)
+    searchInput(inputValue)
+    document.getElementById("inputBox").value = " "
+
 })
 
 //search Country Display
@@ -125,33 +138,30 @@ const searchValueDisplay = document.querySelector('.searchValue');
 
 const searchValueShow = (country) => {
     const { flags, name, capital, region } = country[0]
-    countryDisplay.style.display = "none";
     searchValueDisplay.style.display = "block";
 
     console.log("remove chacke")
     const card = document.createElement("div");
-    card.classList.add("justify-content-center")
+    card.classList.add("row")
     card.innerHTML = `
-    <div class="card" style="width: 18rem;">
-        <img src=${flags.png} class="card-img-top" alt="flags">
-        <div class="card-body">
-            <h5 class="card-title">${name.common}</h5>
-            <button onclick =" getDetail('${name.common}')" class="btn btn-primary">Details</button>
+            <div class="col-md-4 col-sm-12"></div>
+            <div class="col-md-4 col-sm-12">
+            <div class="card" style="width: 18rem;">
+            <img src=${flags.png} class="card-img-top" alt="flags">
+            <div class="card-body">
+                <h5 class="card-title">${name.common}</h5>
+                <button onclick =" getDetail('${name.common}')" class="btn btn-primary">Details</button>
+            </div>
         </div>
-    </div>
+            
+            </div>
+            <div class="col-md-4 col-sm-12"></div>
         `
     searchValueDisplay.appendChild(card);
 
+    loadingSpinner("none")
+
 }
-
-// backIcon area
-backIcon.addEventListener("click", () => {
-    history.go();
-    countryDisplay.style.display = "flex";
-    countryDetails.style.display = "none";
-    searchValueDisplay.style.display = "none";
-
-})
 
 
 

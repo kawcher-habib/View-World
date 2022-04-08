@@ -1,99 +1,24 @@
-* {
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
 body {
   font-family: "Times New Roman", Times, serif;
-  background-color: #0000001c;
-}
-
-.container {
-  width: 1050px;
-  margin: 0 auto;
-  padding: 10px;
-  background-color: #bbb5b500;
-}
-
-.container > .header-area {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 100%;
-  padding: 5px;
-}
-
-.container > .header-area .content-side {
-  width: 50%;
-}
-
-.container > .header-area .map-img-side {
-  width: 50%;
-}
-
-.container > .header-area .map-img-side img {
-  width: 100%;
-}
-
-.container > .main-area {
-  text-align: center;
-  margin-top: 30px;
-  width: 100%;
-}
-
-.container > .main-area > .nav-bar {
-  margin: 30px 0;
-}
-
-.container > .main-area > .nav-bar ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (1fr)[5];
-      grid-template-columns: repeat(5, 1fr);
-}
-
-.container > .main-area > .search-box {
-  margin-bottom: 20px;
-}
-
-.container > .main-area > .search-box .input-box {
-  width: 40%;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.container > .main-area > .search-box button {
-  width: 7%;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.container > .main-area > .country-display-area {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
 .container > .main-area > .searchValue {
+  display: none;
+}
+
+.container > .main-area > .country-details-area {
+  display: none;
+}
+
+.container footer {
   text-align: center;
+}
+
+.container footer button {
+  border-radius: 50%;
+  padding: 10px;
+  background-color: #f77307;
+  color: #ffff;
+  margin: 15px 0;
 }
 /*# sourceMappingURL=style.css.map */
