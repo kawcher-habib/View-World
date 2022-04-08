@@ -5,19 +5,17 @@ fetch('https://restcountries.com/v3.1/all')
 
 //Country Display 
 const countrys = countriesData => {
-
     const countryDisplay = document.querySelector(".country-display-area");
     countriesData.map(getData => {
-        console.log(getData)
+        const { flags, name } = getData
         let newDiv = document.createElement("div")
-        newDiv.classList.add("card")
         newDiv.innerHTML = `
-       
-        <img class=""flag src = ${getData.flags.png} alt="country-flag">
-        
-        <div className="content">
-        <h2>${getData.name.common}</h2>
-        <button class="detailsBtn" onclick =" getDetail('${getData.name.common}')">Details</button>
+        <div class="card mb-2" style="width: 18rem;">
+            <img src=${flags.png} class="card-img-top" alt="flags">
+            <div class="card-body">
+                <h5 class="card-title">${name.common}</h5>
+                <button onclick =" getDetail('${name.common}')" class="btn btn-primary">Details</button>
+            </div>
         </div>
         `
         countryDisplay.appendChild(newDiv)
@@ -41,11 +39,12 @@ const backIcon = document.querySelector("#back");
 
 //Country Detail Info Display
 const renderingCountryInfo = country => {
-    console.log(country)
+    const { flags, name, capital, region, subregion, timezones, startOfWeek, area, population, maps } = country[0]
     countryDisplay.style.display = "none";
     countryDetails.style.display = "block"
     backIcon.style.display = "inline";
     searchValueDisplay.style.display = "none";
+    searchBox.style.display = "none"
 
     let countryDetailsNewDiv = document.createElement("div");
     countryDetailsNewDiv.classList.add("country-detail")
@@ -53,101 +52,94 @@ const renderingCountryInfo = country => {
     countryDetailsNewDiv.innerHTML = `
                    
                     <div class="flag-img">
-                      <img src =${country[0].flags.png} alt="countryFlag"/>
-                      <h1>${country[0].name.common}</h1>
+                      <img src =${flags.png} alt="countryFlag"/>
+                      <h1>${name.common}</h1>
                     </div>
                      <div class="countryInfo">
                      <table class="table table-striped">
                         <tbody>
                             <tr>
                                 <th scope="row">Capital</th>
-                                <td>${country[0].capital}</td>
+                                <td>${capital}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Region  </th>
-                                <td>${country[0].region}</td>
+                                <td>${region}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Subregion</th>
-                                <td>${country[0].subregion}</td>
+                                <td>${subregion}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Timezones </th>
-                                <td>${country[0].timezones}</td>
+                                <td>${timezones}</td>
                             </tr>
                             <tr>
                                 <th scope="row">StartOfWeek </th>
-                                <td>${country[0].startOfWeek}</td>
+                                <td>${startOfWeek}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Area </th>
-                                <td>${country[0].area}</td>
+                                <td>${area}</td>
                             </tr>
                             <tr>
                             <th scope="row">Population  </th>
-                            <td>${country[0].population}</td>
+                            <td>${population}</td>
                             </tr>
                         </tbody>
                         </table>
                     </div>
-                    <div class="d-flex justify-content-between">
+                    <div class="">
                     
-                    
-                    <div className="maps img-thumbnail">
-                    <iframe  src=${country[0].maps.googleMaps} width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    
-                    </div>
-
-                        <div className="img">
+                        <div className="maps ">
+                        <iframe  src=${maps.googleMaps}  style="border:0;"  loading="lazy"></iframe>
                         
-                        <img class="img-thumbnail mx-2" src=${country[0].coatOfArms.png}/>
                         </div>
-                    
                     </div>
              
          `
-
     countryDetails.appendChild(countryDetailsNewDiv);
 
 }
 
 // search-area
-const searchInput = (data) => {
-    const url = `https://restcountries.eu/rest/v2/name/${data}?fullText=true`
+const searchBox = document.querySelector(".search-box");
+const searchBtn = document.getElementById("searchBtn");
+const inputValue = document.getElementById("inputBox")
+const searchInput = (getName) => {
+    const url = `https://restcountries.com/v3.1/name/${getName}?fullText=true`
     fetch(url)
         .then(res => res.json())
-        .then(data => searchValueShow(data[0]))
+        .then(data => searchValueShow(data))
 }
 
 // searchBtn
-const searchBtn = document.getElementById("searchBtn"); searchBtn.addEventListener("click", function () {
-    const inputValue = document.getElementById("inputBox").value;
-    searchInput(inputValue)
+searchBtn.addEventListener("click", function () {
+    const inputValues = inputValue.value;
+    // console.log(inputValues)
+    searchInput(inputValues)
 })
 
 //search Country Display
 const searchValueDisplay = document.querySelector('.searchValue');
 
 const searchValueShow = (country) => {
+    const { flags, name, capital, region } = country[0]
     countryDisplay.style.display = "none";
     searchValueDisplay.style.display = "block";
 
     console.log("remove chacke")
     const card = document.createElement("div");
-    card.classList.add("card")
-
-    const countryInfo = `
-            <img class="flag_img" src = ${country.flag} alt ="countryflag" >
-            <div class="titleText">
-                    <h3>${country.name}</h3>
-                    <br/>
-                    <h6> ${country.capital}</h6>
-                    <br/>
-                    <h4>${country.region}</h4>
-            </div>
-            <button class="detailsBtn" onclick =" detail('${country.name}')">Details</button>
+    card.classList.add("justify-content-center")
+    card.innerHTML = `
+    <div class="card" style="width: 18rem;">
+        <img src=${flags.png} class="card-img-top" alt="flags">
+        <div class="card-body">
+            <h5 class="card-title">${name.common}</h5>
+            <button onclick =" getDetail('${name.common}')" class="btn btn-primary">Details</button>
+        </div>
+    </div>
         `
-    card.innerHTML = countryInfo;
     searchValueDisplay.appendChild(card);
 
 }
@@ -160,21 +152,6 @@ backIcon.addEventListener("click", () => {
     searchValueDisplay.style.display = "none";
 
 })
-
-
-// const countryInfo = `
-//             <img class="flag_img" src = ${country[i].flag} alt ="countryflag" >
-
-//             <div class="titleText">
-//                     <h3>${country.name}</h3>
-//                     <h6> ${country.capital}</h6>
-//                     <h4>${country.region}</h4>
-//             </div>
-
-//             <button class="detailsBtn" onclick =" detail('${country.name}')">Details</button>
-//         `
-//         card.innerHTML = countryInfo;
-//         countryDisplay.appendChild(card);
 
 
 
