@@ -53,7 +53,6 @@ const renderingCountryInfo = country => {
     // backIcon.style.display = "inline";
     searchValueDisplay.style.display = "none";
     searchBox.style.display = "none"
-    console.log(name.common)
     let countryDetailsNewDiv = document.createElement("div");
     countryDetailsNewDiv.classList.add("row")
 
@@ -127,7 +126,6 @@ searchBtn.addEventListener("click", function () {
     countryDisplay.style.display = "none"
     loadingSpinner("block")
     const inputValue = document.getElementById("inputBox").value
-    console.log(inputValue)
     searchInput(inputValue)
     document.getElementById("inputBox").value = " "
 
@@ -140,7 +138,6 @@ const searchValueShow = (country) => {
     const { flags, name, capital, region } = country[0]
     searchValueDisplay.style.display = "block";
 
-    console.log("remove chacke")
     const card = document.createElement("div");
     card.classList.add("row")
     card.innerHTML = `
