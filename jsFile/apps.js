@@ -47,12 +47,16 @@ const backIcon = document.querySelector("#back");
 const renderingCountryInfo = country => {
     loadingSpinner("block")
     const { flags, name, capital, region, subregion, timezones, startOfWeek, area, population, maps } = country[0]
+    backBtn.classList.remove("d-none")
+    backBtn.classList.add("d-inline")
+
     countryDisplay.classList.remove("d-flex")
     countryDisplay.style.display = "none";
     countryDetails.style.display = "block"
-    // backIcon.style.display = "inline";
+
     searchValueDisplay.style.display = "none";
-    searchBox.style.display = "none"
+    searchBox.classList.add("d-none")
+
     let countryDetailsNewDiv = document.createElement("div");
     countryDetailsNewDiv.classList.add("row")
 
@@ -136,8 +140,10 @@ const searchValueDisplay = document.querySelector('.searchValue');
 
 const searchValueShow = (country) => {
     const { flags, name, capital, region } = country[0]
+    console.log(name)
     searchValueDisplay.style.display = "block";
-
+    backBtn.classList.remove("d-none")
+    backBtn.classList.add("d-inline")
     const card = document.createElement("div");
     card.classList.add("row")
     card.innerHTML = `
@@ -159,7 +165,19 @@ const searchValueShow = (country) => {
     loadingSpinner("none")
 
 }
+// back- arrow
+const backBtn = document.getElementById("back-arrow");
 
+backBtn.addEventListener("click", function () {
+    searchValueDisplay.style.display = "none"
+    countryDisplay.classList.add("d-flex")
+    countryDetails.style.display = "none"
+    backBtn.classList.remove("d-inline")
+    backBtn.classList.add("d-none")
+    searchBox.classList.remove("d-none")
+
+
+})
 
 
 
